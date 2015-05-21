@@ -1,6 +1,6 @@
 <?php
 header('Access-Control-Allow-Origin: *');  
-
+/*
 $nombre_tabla=$_POST["n_tabla"];
 $campos=$_POST["campos"];
 
@@ -8,16 +8,20 @@ $usuario=$_POST["usuario"];
 $contrasena=$_POST["password"];
 $nombre_bd=$_POST["n_bd"];
 
-$valores=$_POST["valores"];
+$n_valores=$_POST["n_valores"]; //empieza de 0
+
 $gestion=$_POST["gestion_dato"];
+*/
 
 //para pruebas
-//$usuario="zubiri";
-//$contrasena="";
-//$nombre_bd="pruebax";
-//$nombre_tabla="prueba_prueba";
-//$gestion="mostrar";
-
+/*
+$usuario="zubiri";
+$contrasena="";
+$nombre_bd="pruebax";
+$nombre_tabla="prueba_prueba";
+$gestion="crear";
+$n_valores=3;
+*/
 /*
 INSERT INTO `prueba_prueba`(`ID_Contact`, `Name`, `Email`, `Phone`) VALUES ("","prueba2","prueba2@mail",682364822);
 INSERT INTO `prueba_prueba`(`ID_Contact`, `Name`, `Email`, `Phone`) VALUES ("","prueba3","prueba3@mail",682364833);
@@ -99,23 +103,86 @@ if (!$link) {
         
         //http://aprenderaprogramar.com/index.php?option=com_content&view=article&id=615:php-insert-into-values-insertar-datos-registros-filas-en-base-de-datos-mysql-ejemplos-y-ejercicio-cu00843b&catid=70:tutorial-basico-programador-web-php-desde-cero&Itemid=193
         
+        /*
+        $valor0="";
+        $valor1="no1mbre";
+        $valor2="mai1l";
+        $valor3=500681255;
+        $valor4="500611255";
+        */
+        /*
+        echo "n_valores ";
+        echo $n_valores;
+        echo "<br/>";
+        echo "prueba 1 ";
+        echo $valor1;
+        echo "<br/>";
+        echo "prueba 2 ";
+        echo ${"valor".$n_valores}; //concatenacion para crear nombre de varible
+        echo "<br/>";
+        echo "<br/>";
+        echo "prueba 3 ";
+        echo $valor3;
+        echo " vs ";
+        echo $valor4;
+        echo "<br/>";
+        */
         $sql="use $nombre_bd";
         //$sql="use pruebax";
         mysql_query($sql,$link);
-        
+        $valores="";
+        for($i=0;$i<$n_valores+1;$i++){
+            if($i==0){
+                $valores="\"".$_POST["valor".$i]."\"";
+                /*
+                $valores="\"".${"valor".$i}."\"";
+                echo "prueba bucle 1 ";
+                echo $valores;
+                echo "<br/>";
+                */
+            }else{
+                $valores.=","."\"".$_POST["valor".$i]."\"";
+                /*
+                $valores.=","."\"".${"valor".$i}."\"";
+                echo "prueba bucle 2 ";
+                echo $valores;
+                echo "<br/>";
+                */
+            }
+            
+        }    
+        //$valores=$concatenacion;
         
         //$nombre_tabla="prueba_borrame2";
         //$campos="nombre varchar(20)";
+        
         $sql="insert into $nombre_tabla values ($valores)"; //ok
+        /*
+        echo "<br/>";
+        echo $sql;
+        echo "<br/>";
+        */
         //$sql=
         //"INSERT INTO `prueba_prueba`(`ID_Contact`, `Name`, `Email`, `Phone`) VALUES ("","prueba","email",987123654)"; 
         //codigo sql ok
         
-        mysql_query($sql,$link);
-        $data = array('nombre_tabla' => $nombre_tabla, 'resultado' => 'tabla creada');
+        $resultado=mysql_query($sql,$link);
+        /*
+        echo "<br/>";
+        echo "resultado";
+        echo $resultado;
+        echo "<br/>";
+        */
+        
+        if (resultado){
+            $data = array( 'resultado' => 'dato insertado');
+        }else{
+            $data = array( 'resultado' => 'error en la insercion');
+        }
         echo $data;
         header('Content-Type: application/json');
         echo json_encode($data);
+        
     }    
     // fin de la conexion
     mysql_close($link);

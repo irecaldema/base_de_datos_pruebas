@@ -5,6 +5,7 @@ $usuario=$_POST["usuario"];
 //$usuario="zubiri";
 $contrasena=$_POST["password"];
 //$contrasena="";
+
 $link = mysql_connect('127.0.0.1', $usuario, $contrasena);
 if (!$link) {
     die('Could not connect: ' . mysql_error());
