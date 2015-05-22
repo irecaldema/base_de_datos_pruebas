@@ -1,6 +1,6 @@
 <?php
 header('Access-Control-Allow-Origin: *');  
-/*
+
 $nombre_tabla=$_POST["n_tabla"];
 $campos=$_POST["campos"];
 
@@ -8,20 +8,20 @@ $usuario=$_POST["usuario"];
 $contrasena=$_POST["password"];
 $nombre_bd=$_POST["n_bd"];
 
-$n_valores=$_POST["n_valores"]; //empieza de 0
+//$n_valores=$_POST["n_valores"]; 
 
 $gestion=$_POST["gestion_dato"];
-*/
+
 
 //para pruebas
-/*
+///*
 $usuario="zubiri";
 $contrasena="";
 $nombre_bd="pruebax";
 $nombre_tabla="prueba_prueba";
-$gestion="crear";
+//$gestion="crear";
 $n_valores=3;
-*/
+//*/
 /*
 INSERT INTO `prueba_prueba`(`ID_Contact`, `Name`, `Email`, `Phone`) VALUES ("","prueba2","prueba2@mail",682364822);
 INSERT INTO `prueba_prueba`(`ID_Contact`, `Name`, `Email`, `Phone`) VALUES ("","prueba3","prueba3@mail",682364833);
@@ -103,13 +103,13 @@ if (!$link) {
         
         //http://aprenderaprogramar.com/index.php?option=com_content&view=article&id=615:php-insert-into-values-insertar-datos-registros-filas-en-base-de-datos-mysql-ejemplos-y-ejercicio-cu00843b&catid=70:tutorial-basico-programador-web-php-desde-cero&Itemid=193
         
-        /*
+        
         $valor0="";
-        $valor1="no1mbre";
-        $valor2="mai1l";
-        $valor3=500681255;
-        $valor4="500611255";
-        */
+        $valor1="pr15ue";
+        $valor2="m15ail";
+        $valor3="500463184";
+        //$valor4="500611255";
+        
         /*
         echo "n_valores ";
         echo $n_valores;
@@ -132,18 +132,25 @@ if (!$link) {
         mysql_query($sql,$link);
         $valores="";
         for($i=0;$i<$n_valores+1;$i++){
+            $nombre="valor".$i;
             if($i==0){
-                $valores="\"".$_POST["valor".$i]."\"";
-                /*
+                //$valores="\"".$_POST["valor".$i]."\"";
+                //$valores="\"".$_POST[$nombre]."\"";
+                
                 $valores="\"".${"valor".$i}."\"";
+                //$valores="\"".${$nombre}."\"";
+                /*
                 echo "prueba bucle 1 ";
                 echo $valores;
                 echo "<br/>";
                 */
             }else{
-                $valores.=","."\"".$_POST["valor".$i]."\"";
-                /*
+                //$valores.=","."\"".$_POST["valor".$i]."\"";
+                //$valores.=","."\"".$_POST[$nombre]."\"";
+                
                 $valores.=","."\"".${"valor".$i}."\"";
+                //$valores.=","."\"".${$nombre}."\"";
+                /*
                 echo "prueba bucle 2 ";
                 echo $valores;
                 echo "<br/>";
@@ -177,9 +184,9 @@ if (!$link) {
         if (resultado){
             $data = array( 'resultado' => 'dato insertado');
         }else{
-            $data = array( 'resultado' => 'error en la insercion');
+            $data = array( 'resultado' => 'super error en la insercion');
         }
-        echo $data;
+        //echo $data;
         header('Content-Type: application/json');
         echo json_encode($data);
         
